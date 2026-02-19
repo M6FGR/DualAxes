@@ -136,7 +136,10 @@ repositories {
 // If you have mod jar dependencies in ./libs, you can declare them as a repository like so.
 // See https://docs.gradle.org/current/userguide/declaring_repositories.html#sub:flat_dir_resolver
 
-
+mixin {
+     add sourceSets.main, "dualaxes.refmap.json"
+    config 'dualaxes.mixins.json'
+}
 
 dependencies {
     // Specify the version of Minecraft to use.
@@ -145,9 +148,9 @@ dependencies {
     // If the group id is "net.minecraft" and the artifact id is one of ["client", "server", "joined"],
     // then special handling is done to allow a setup of a vanilla dependency without the use of an external repository.
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    implementation fg.deobf("curse.maven:epic-fight-mod-405076:6921772")
-  //  implementation fg.deobf("local:skinlayers3d:1.7.5")
-    implementation fg.deobf("curse.maven:skinrestorer-443823:6490312")
+    implementation fg.deobf("curse.maven:epic-fight-mod-405076:7584041")
+    //  implementation fg.deobf("local:skinlayers3d:1.7.5")
+   // implementation fg.deobf("curse.maven:skinrestorer-443823:6490312")
     // Example mod dependency with JEI - using fg.deobf() ensures the dependency is remapped to your development mappings
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}")

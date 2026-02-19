@@ -15,13 +15,16 @@ import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import org.stringtemplate.v4.compiler.STLexer;
 import yesman.epicfight.api.animation.AnimationManager;
+import yesman.epicfight.api.animation.LivingMotion;
 import yesman.epicfight.api.animation.LivingMotions;
 import yesman.epicfight.api.forgeevent.WeaponCapabilityPresetRegistryEvent;
 import yesman.epicfight.gameasset.Animations;
 import yesman.epicfight.gameasset.ColliderPreset;
 import yesman.epicfight.gameasset.EpicFightSkills;
 import yesman.epicfight.gameasset.EpicFightSounds;
+import yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch;
 import yesman.epicfight.world.capabilities.entitypatch.player.PlayerPatch;
 import yesman.epicfight.world.capabilities.item.CapabilityItem;
 import yesman.epicfight.world.capabilities.item.WeaponCapability;
@@ -35,11 +38,16 @@ import yesman.epicfight.world.capabilities.item.CapabilityItem.WeaponCategories;
 public class WeaponCapabilityPresets {
     public static final Function<Item, CapabilityItem.Builder> AXE = (item) -> {
         CapabilityItem.Builder builder = WeaponCapability.builder()
-                .category(WeaponCategories.AXE).styleProvider((playerPatch) -> {
-            return playerPatch.getHoldingItemCapability(InteractionHand.OFF_HAND).getWeaponCategory() == WeaponCategories.AXE
-                    && ((PlayerPatch<?>)playerPatch).getSkill(DualAxesSkills.DUALAXE) != null
-                    && ((PlayerPatch<?>)playerPatch).getSkill(DualAxesSkills.DUALAXE).getSkill().getRegistryName().getPath().equals("dualaxe") ? Styles.TWO_HAND : Styles.ONE_HAND;
-        })
+                .category(WeaponCategories.AXE).styleProvider((entityPatch) -> {
+                    if (entityPatch instanceof PlayerPatch<?> playerPatch) {
+                        return playerPatch.getHoldingItemCapability(InteractionHand.OFF_HAND).getWeaponCategory() == WeaponCategories.AXE
+                                && playerPatch.getSkill(DualAxesSkills.DUALAXE) != null
+                                && playerPatch.getSkill(DualAxesSkills.DUALAXE).getSkill().getRegistryName().getPath().equals("dualaxe") ? Styles.TWO_HAND : Styles.ONE_HAND;
+                    } else if (entityPatch instanceof LivingEntityPatch<?>) {
+                        return entityPatch.getHoldingItemCapability(InteractionHand.OFF_HAND).getWeaponCategory() == WeaponCategories.AXE ? Styles.TWO_HAND : Styles.ONE_HAND;
+                    }
+                    return Styles.ONE_HAND;
+                })
                 .collider(ColliderPreset.TOOLS)
                 .hitSound(EpicFightSounds.BLADE_HIT.get())
                 .newStyleCombo(Styles.ONE_HAND, DualAxesAnimations.AXE_AUTO_1, DualAxesAnimations.AXE_AUTO_2, DualAxesAnimations.AXE_AUTO_3, Animations.BIPED_MOB_TACHI, Animations.AXE_AIRSLASH)
