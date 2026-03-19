@@ -1,17 +1,16 @@
 package M6FGR.dualaxes.gameassets;
 
+import M6FGR.dualaxes.api.cls.ILoadableClass;
 import M6FGR.dualaxes.main.DualAxes;
-import M6FGR.dualaxes.skill.DualAxePassiveSkill;
+import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import yesman.epicfight.api.animation.property.AnimationProperty;
 import yesman.epicfight.api.animation.property.AnimationProperty.AttackPhaseProperty;
 import yesman.epicfight.api.utils.math.ValueModifier;
-import yesman.epicfight.gameasset.Animations;
 import yesman.epicfight.registry.EpicFightRegistries;
 import yesman.epicfight.skill.Skill;
 import yesman.epicfight.skill.passive.PassiveSkill;
-import yesman.epicfight.skill.weaponinnate.GuillotineAxeSkill;
 import yesman.epicfight.skill.weaponinnate.SimpleWeaponInnateSkill;
 import yesman.epicfight.world.damagesource.EpicFightDamageTypeTags;
 import yesman.epicfight.world.damagesource.ExtraDamageInstance;
@@ -19,10 +18,10 @@ import yesman.epicfight.world.damagesource.StunType;
 
 import java.util.Set;
 
-public class DualAxesSkills {
+public class DualAxesSkills implements ILoadableClass {
     public static final DeferredRegister<Skill> SKILLS = DeferredRegister.create(EpicFightRegistries.Keys.SKILL, DualAxes.MODID);
 
-    public static final DeferredHolder<Skill, SimpleWeaponInnateSkill> SPINNING_DEATH = SKILLS.register("spinning_death", key -> {
+   public static final DeferredHolder<Skill, SimpleWeaponInnateSkill> SPINNING_DEATH = SKILLS.register("spinning_death", key -> {
         return SimpleWeaponInnateSkill.createSimpleWeaponInnateBuilder(SimpleWeaponInnateSkill::new)
                 .setAnimations(DualAxesAnimations.AXE_SPINNING_DEATH)
                 .newProperty()
@@ -33,10 +32,11 @@ public class DualAxesSkills {
                 .addProperty(AttackPhaseProperty.STUN_TYPE, StunType.LONG)
                 .addProperty(AttackPhaseProperty.EXTRA_DAMAGE, Set.of(ExtraDamageInstance.SWEEPING_EDGE_ENCHANTMENT.create()))
                 .addProperty(AttackPhaseProperty.SOURCE_TAG, Set.of(EpicFightDamageTypeTags.WEAPON_INNATE))
-                .build(key, SimpleWeaponInnateSkill.class);
+                .build(key);
     });
-    public static final DeferredHolder<Skill, PassiveSkill> DUAL_AXES = SKILLS.register("dualaxe", key -> {
-        return PassiveSkill.createPassiveBuilder(DualAxePassiveSkill::new)
-                .build(key, DualAxePassiveSkill.class);
-    });
+
+    @Override
+    public void onModConstructor(IEventBus modBus) {
+        SKILLS.register(modBus);
+    }
 }

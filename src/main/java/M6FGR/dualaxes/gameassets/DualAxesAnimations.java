@@ -6,10 +6,8 @@
 package M6FGR.dualaxes.gameassets;
 
 import M6FGR.dualaxes.api.animation.types.SimpleAttackAnimation;
-import M6FGR.dualaxes.api.exceptions.TryFailException;
 import M6FGR.dualaxes.main.DualAxes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.gametest.framework.GameTestTimeoutException;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
@@ -72,14 +70,10 @@ public class DualAxesAnimations {
 
     @SubscribeEvent
     public static void registerAnimations(AnimationManager.AnimationRegistryEvent event) {
-        try {
-            event.newBuilder(DualAxes.MODID, DualAxesAnimations::build);
-        } catch (Exception e) {
-            throw new TryFailException("Failed to register the animations: " + e.getMessage());
-        }
+        event.newBuilder(DualAxes.MODID, DualAxesAnimations::build);
     }
 
-    public static void build(AnimationManager.AnimationBuilder builder) {
+    private static void build(AnimationManager.AnimationBuilder builder) {
         AXE_AUTO_1 = builder.nextAccessor("biped/combat/axe_auto_1", (accessor) -> {
             return new SimpleAttackAnimation(0.05F, accessor, Armatures.BIPED,
                     new AttackAnimation.Phase(0.0F, 0.6F, 0.2F, 0.35F, 0.5F, 0.6F, Armatures.BIPED.get().toolR, null)
