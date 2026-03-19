@@ -1,9 +1,10 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "M6FGR.dualaxes.mixin",
+  "package": "M6FGR.dualaxes.mixins",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "HumanoidMobPatchMixin"
   ],
   "client": [
   ],

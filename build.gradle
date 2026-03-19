@@ -109,8 +109,10 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 
 dependencies {
-    implementation "curse.maven:epic-fight-mod-405076:7345490"
+    implementation "curse.maven:epic-fight-mod-405076:7584050"
     implementation "curse.maven:skinrestorer-443823:6897065"
+    // fixing issue incompatibility between the addon
+    implementation "curse.maven:epic-fight-mod-rapier-moveset-addon-1036425:7728556"
     // Example mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
     // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"
