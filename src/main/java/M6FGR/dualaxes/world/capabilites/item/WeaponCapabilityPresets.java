@@ -7,6 +7,7 @@ import M6FGR.dualaxes.main.DualAxes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.Item;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import yesman.epicfight.api.animation.LivingMotions;
 import yesman.epicfight.api.event.EpicFightEventHooks;
@@ -55,10 +56,16 @@ public class WeaponCapabilityPresets implements ILoadableClass {
     };
 
     private void registerWeaponCapability() {
-        EpicFightEventHooks.Registry.WEAPON_CAPABILITY_PRESET.registerEvent(event ->
-                event.getTypeEntry().put(ResourceLocation.fromNamespaceAndPath("epicfight", "axe"), AXE),
-                2
-        );
+        EpicFightEventHooks.Registry.WEAPON_CAPABILITY_PRESET.registerEvent(event -> {
+                event.getTypeEntry().put(ResourceLocation.fromNamespaceAndPath("epicfight", "axe"), AXE);
+        }, basedPriority());
+    }
+
+    private int basedPriority() {
+        if (ModList.get().isLoaded("refm")) {
+            return 3;
+        }
+        return 0;
     }
 
     @Override
