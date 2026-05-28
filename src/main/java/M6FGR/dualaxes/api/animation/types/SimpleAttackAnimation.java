@@ -26,7 +26,6 @@ public class SimpleAttackAnimation extends AttackAnimation {
         super(transitionTime, antic, preDelay, contact, recovery, collider, colliderJoint, accessor, armature);
         this.addProperty(AnimationProperty.ActionAnimationProperty.CANCELABLE_MOVE, true);
         this.addProperty(AnimationProperty.ActionAnimationProperty.MOVE_VERTICAL, false);
-        this.addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.1F);
         this.addProperty(AnimationProperty.StaticAnimationProperty.POSE_MODIFIER, Animations.ReusableSources.COMBO_ATTACK_DIRECTION_MODIFIER);
     }
     public SimpleAttackAnimation(float transitionTime, float antic, float preDelay, float contact, float recovery, boolean shouldBend, @Nullable Collider collider, Joint colliderJoint, AnimationManager.AnimationAccessor<? extends SimpleAttackAnimation> accessor, AssetAccessor<? extends Armature> armature) {
