@@ -41,6 +41,8 @@ import yesman.epicfight.api.utils.math.ValueModifier;
 import yesman.epicfight.api.utils.math.Vec3f;
 import yesman.epicfight.gameasset.Armatures;
 import yesman.epicfight.gameasset.Animations.ReusableSources;
+import yesman.epicfight.gameasset.Armatures.ArmatureAccessor;
+import yesman.epicfight.model.armature.HumanoidArmature;
 import yesman.epicfight.registry.entries.EpicFightSounds;
 import yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch;
 import yesman.epicfight.world.capabilities.entitypatch.player.PlayerPatch;
@@ -75,7 +77,7 @@ public class DualAxesAnimations {
 
     private static void build(AnimationManager.AnimationBuilder builder) {
         AXE_AUTO_1 = builder.nextAccessor("biped/combat/axe_auto_1", (accessor) -> {
-            return new SimpleAttackAnimation(0.05F, accessor, Armatures.BIPED,
+            return new SimpleAttackAnimation(0.1F, accessor, Armatures.BIPED,
                     new AttackAnimation.Phase(0.0F, 0.6F, 0.2F, 0.35F, 0.5F, 0.6F, Armatures.BIPED.get().toolR, null)
                             .addProperty(AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(0.5F))
                             .addProperty(AttackPhaseProperty.STUN_TYPE, StunType.HOLD),
@@ -84,7 +86,7 @@ public class DualAxesAnimations {
                     .addProperty(AttackPhaseProperty.STUN_TYPE, StunType.HOLD).addProperty(AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.1F);
         });
         AXE_AUTO_2 = builder.nextAccessor("biped/combat/axe_auto_2", (accessor) -> {
-            return new SimpleAttackAnimation(0.05F, accessor, Armatures.BIPED,
+            return new SimpleAttackAnimation(0.1F, accessor, Armatures.BIPED,
                     new AttackAnimation.Phase(0.0F, 0.5F, 0.2F, 0.3F, 0.4F, 0.5F, Armatures.BIPED.get().toolR, null)
                     .addProperty(AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(0.5F))
                     .addProperty(AttackPhaseProperty.STUN_TYPE, StunType.HOLD),
@@ -93,19 +95,19 @@ public class DualAxesAnimations {
                     .addProperty(AttackPhaseProperty.STUN_TYPE, StunType.HOLD);
         });
         AXE_AUTO_3 = builder.nextAccessor("biped/combat/axe_auto_3", (accessor) -> {
-            return new SimpleAttackAnimation(0.05F, accessor, Armatures.BIPED,
+            return new SimpleAttackAnimation(0.1F, accessor, Armatures.BIPED,
                     new AttackAnimation.Phase(0.0F, 0.0F, 0.48F, 0.72F, 0.78F, Float.MAX_VALUE, Armatures.BIPED.get().toolR, null))
                     .addProperty(AttackPhaseProperty.STUN_TYPE, StunType.LONG)
                     .addEvents(InTimeEvent.create(0.54F, ReusableSources.FRACTURE_GROUND_SIMPLE, Side.SERVER).params(new Vec3f(-0.65F, 0.0F, -2.0F), Armatures.BIPED.get().toolR, 1.1, 0.55F));
         });
         AXE_DUAL_AUTO_1 = builder.nextAccessor("biped/combat/axe_dual_auto_1", (accessor) -> {
-            return new SimpleAttackAnimation(0.05F, accessor, Armatures.BIPED,
+            return new SimpleAttackAnimation(0.1F, accessor, Armatures.BIPED,
                     new AttackAnimation.Phase(0.0F, 0.1F, 0.35F, 0.45F, 0.4F, 0.5F, InteractionHand.OFF_HAND, Armatures.BIPED.get().toolL, null).addProperty(AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(0.5F)).addProperty(AttackPhaseProperty.STUN_TYPE, StunType.HOLD), new AttackAnimation.Phase(0.0F, 0.6F, 0.7F, 0.8F, 0.9F, Armatures.BIPED.get().toolR, null))
                     .addProperty(AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(0.5F), 1)
                     .addProperty(AttackPhaseProperty.STUN_TYPE, StunType.HOLD);
         });
         AXE_DUAL_AUTO_2 = builder.nextAccessor("biped/combat/axe_dual_auto_2", (accessor) -> {
-            return new SimpleAttackAnimation(0.05F, accessor, Armatures.BIPED, new AttackAnimation.Phase(0.0F, 0.1F, 0.35F, 0.5F, 0.4F, 0.5F, Armatures.BIPED.get().toolR, null).addProperty(AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(0.5F)).addProperty(AttackPhaseProperty.STUN_TYPE, StunType.HOLD),
+            return new SimpleAttackAnimation(0.1F, accessor, Armatures.BIPED, new AttackAnimation.Phase(0.0F, 0.1F, 0.35F, 0.5F, 0.4F, 0.5F, Armatures.BIPED.get().toolR, null).addProperty(AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(0.5F)).addProperty(AttackPhaseProperty.STUN_TYPE, StunType.HOLD),
                     new AttackAnimation.Phase(0.2F, 0.7F, 0.8F, 0.9F, 0.9F, InteractionHand.OFF_HAND, Armatures.BIPED.get().toolL, null)).addProperty(AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(0.5F), 1).addProperty(AttackPhaseProperty.STUN_TYPE, StunType.HOLD);
         });
         AXE_DUAL_AUTO_3 = builder.nextAccessor("biped/combat/axe_dual_auto_3", (accessor) -> {
@@ -113,7 +115,7 @@ public class DualAxesAnimations {
                     .removeProperty(ActionAnimationProperty.POSE_MODIFIER);
         });
         AXE_SPINNING_DEATH = builder.nextAccessor("biped/skill/spinning_death", (accessor) -> {
-            return new SimpleAttackAnimation(0.05F, accessor, Armatures.BIPED,
+            return new SimpleAttackAnimation(0.1F, accessor, Armatures.BIPED,
                     new AttackAnimation.Phase(0.0F, 0.1F, 0.17F, 0.24F, 0.24F, 0.24F, InteractionHand.OFF_HAND, Armatures.BIPED.get().rootJoint, DualAxesColliders.AXE_SLAM)
                             .addProperty(AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.setter(0.32F))
                             .addProperty(AttackPhaseProperty.STUN_TYPE, StunType.HOLD),
@@ -137,7 +139,7 @@ public class DualAxesAnimations {
                     .addProperty(ActionAnimationProperty.NO_GRAVITY_TIME, TimePairList.create(0.12F, 0.55F))
                     .removeProperty(ActionAnimationProperty.POSE_MODIFIER)
                     .addProperty(StaticAnimationProperty.PLAY_SPEED_MODIFIER, (self, entitypatch, speed, prevElapsedTime, elapsedTime) -> {
-                        if (elapsedTime >= 0.55F && elapsedTime < 0.7F) {
+                        if (elapsedTime >= 0.55F && elapsedTime < 0.72F) {
                             float dpx = (float) entitypatch.getOriginal().getX();
                             float dpy = (float) entitypatch.getOriginal().getY();
                             float dpz = (float) entitypatch.getOriginal().getZ();
