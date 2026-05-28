@@ -11,7 +11,7 @@ loaderVersion = "${loader_version_range}" #mandatory
 # Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
 license = "${mod_license}"
 # A URL to refer people to when problems occur with this mod
-#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #optional
+issueTrackerURL="https://github.com/M6FGR/DualAxes/issues"
 # A list of mods - how many allowed here is determined by the individual mod loader
 [[mods]] #mandatory
 # The modid of the mod
@@ -69,14 +69,15 @@ modId = "minecraft"
 type = "required"
 # This version range declares a minimum of the current minecraft version up to but not including the next major version
 versionRange = "${minecraft_version_range}"
-ordering = "NONE"
+ordering = "AFTER"
 side = "BOTH"
+
 [[dependencies."${mod_id}"]]
 modId = "epicfight"
 type = "required"
 # This version range declares a minimum of the current minecraft version up to but not including the next major version
-versionRange = "21.15.3"
-ordering = "NONE"
+versionRange = "21.17.1"
+ordering = "AFTER"
 side = "BOTH"
 
 # Features are specific properties of the game environment, that you may want to declare you require. This example declares
